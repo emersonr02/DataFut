@@ -1,55 +1,78 @@
-# Prerequisites
-*.d
+## Build results
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+bld/
+[Bb]in/
+[Oo]bj/
+out/
 
-# Object files
-*.o
-*.ko
-*.obj
-*.elf
+## Visual Studio files
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
 
-# Linker output
-*.ilk
-*.map
-*.exp
+## Rider / VS Code
+.idea/
+.vscode/
 
-# Precompiled Headers
-*.gch
-*.pch
+## Logs
+*.log
 
-# Libraries
-*.lib
-*.a
-*.la
-*.lo
+## NuGet
+*.nupkg
+**/packages/*
+!**/packages/build/
+*.nuget.props
+*.nuget.targets
 
-# Shared objects (inc. Windows DLLs)
-*.dll
-*.so
-*.so.*
-*.dylib
+## .NET Core
+project.lock.json
+project.fragment.lock.json
+artifacts/
 
-# Executables
-*.exe
-*.out
-*.app
-*.i*86
-*.x86_64
-*.hex
+## ASP.NET Scaffolding
+ScaffoldingReadMe.txt
 
-# Debug files
-*.dSYM/
-*.su
-*.idb
-*.pdb
+## IIS / Publish
+wwwroot/
+publish/
+*.publishsettings
 
-# Kernel Module Compile Results
-*.mod*
-*.cmd
-.tmp_versions/
-modules.order
-Module.symvers
-Mkfile.old
-dkms.conf
+## Environment files
+.env
+.env.*
 
-# debug information files
-*.dwo
+## User secrets
+secrets.json
+
+## OS files
+.DS_Store
+Thumbs.db
+
+## Resharper
+_ReSharper*/
+*.DotSettings.user
+
+## DotCover
+*.dotCover
+
+## Azure
+*.azurePubxml
+
+## Entity Framework
+*.mdf
+*.ldf
+
+## npm (caso uses frontend)
+node_modules/
+dist/
+build/
+
+## Coverage
+coverage/
+*.coverage
+*.coveragexml
