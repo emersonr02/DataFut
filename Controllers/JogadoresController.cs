@@ -3,6 +3,7 @@ using DataFut.Data;
 using DataFut.Models.Entities;
 using Microsoft.EntityFrameworkCore;
 using DataFut.ViewModels;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace DataFut.Controllers
 {
@@ -62,7 +63,7 @@ namespace DataFut.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Create()
+        public async Task<IActionResult> Contratar()
         {
             var viewModel = new JogadorContratacaoViewModel
             {
@@ -71,11 +72,15 @@ namespace DataFut.Controllers
                     await _context.Clubes.OrderBy(c =>c.Nome).ToListAsync(),
                     "Id",
                     "Nome"
-                 )
+                 ),
+                Posicoes = new SelectList(
+                    await _context.Posicoes.OrderBy(p => p.Nome).ToListAsync(),
+                    "Id",
+                    "Nome"
+        )
             };
 
             return View(viewModel);
         }
-
     }
 }
