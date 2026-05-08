@@ -1,77 +1,79 @@
-﻿<div class="container-fluid pt-4">
-    <div class="text-center mb-5">
-        <h1 class="fw-bold" style="color: #1A237E;">Bem-vindo ao DataFut</h1>
-        <div style="width: 60px; height: 4px; background: #FFD600; margin: 10px auto;"></div>
-        <p class="text-muted mt-3">A sua plataforma central de gestão de transferências de futebol[cite: 7, 9].</p>
-    </div>
+﻿@{
+    ViewData["Title"] = "Dashboard";
+}
 
-    <div class="row mb-5">
-        <div class="col-md-4">
-            <div class="card card-stats h-100 text-center p-4">
-                <div class="mx-auto mb-3 d-flex align-items-center justify-content-center" style="width:60px; height:60px; background:#eaecf4; border-radius:12px;">
-                    <i class="fas fa-shield-alt text-primary fs-4"></i>
-                </div>
-                <p class="text-muted mb-1">Total Clubes</p>
-                <h2 class="display-6 fw-bold mb-3">24</h2>
-                <a href="#" class="btn btn-rounded">Gerir Clubes</a>
-            </div>
-        </div>
+<div class="text-center mt-5 mb-5">
+    <h1 class="display-4">Bem-vindo ao DataFut</h1>
+    <p class="lead text-muted">A sua plataforma central de gestão de transferências de futebol.</p>
+    <hr class="my-4" style="width: 100px; border-top: 3px solid #FFD600; margin: 0 auto;">
+</div>
 
-        <div class="col-md-4">
-            <div class="card card-stats h-100 text-center p-4">
-                <div class="mx-auto mb-3 d-flex align-items-center justify-content-center" style="width:60px; height:60px; background:#eaecf4; border-radius:12px;">
-                    <i class="fas fa-users text-primary fs-4"></i>
-                </div>
-                <p class="text-muted mb-1">Total Jogadores</p>
-                <h2 class="display-6 fw-bold mb-3">512</h2>
-                <a href="#" class="btn btn-rounded">Ver Jogadores</a>
-            </div>
-        </div>
-
-        <div class="col-md-4">
-            <div class="card h-100 text-center p-4" style="border: 2px dashed #FFD600; border-radius: 15px;">
-                <div class="mx-auto mb-3 d-flex align-items-center justify-content-center" style="width:60px; height:60px; background:#fff9db; border-radius:12px;">
-                    <i class="fas fa-file-contract fs-4" style="color: #FFD600;"></i>
-                </div>
-                <h5 class="fw-bold">Nova Contratação</h5>
-                <p class="text-muted small">Registar jogador num novo clube[cite: 24].</p>
-                <button class="btn btn-warning w-100 mt-auto fw-bold" style="border-radius:10px;">
-                    <i class="fas fa-plus me-2"></i>Registar
-                </button>
+<div class="row mt-4">
+    <div class="col-md-4 mb-4">
+        <div class="card card-futebol h-100 p-3 text-center">
+            <div class="card-body">
+                <i class="fas fa-shield-alt fa-3x mb-3" style="color: #1A237E;"></i>
+                <h5 class="card-title text-muted">Total Clubes</h5>
+                <p class="display-5 fw-bold">24</p>
+                <a href="#" class="btn btn-sm btn-outline-primary mt-2">Gerir Clubes</a>
             </div>
         </div>
     </div>
+    <div class="col-md-4 mb-4">
+        <div class="card card-futebol h-100 p-3 text-center">
+            <div class="card-body">
+                <i class="fas fa-users fa-3x mb-3" style="color: #1A237E;"></i>
+                <h5 class="card-title text-muted">Total Jogadores</h5>
+                <p class="display-5 fw-bold">512</p>
+                <a href="#" class="btn btn-sm btn-outline-primary mt-2">Ver Jogadores</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mb-4">
+        <div class="card card-futebol h-100 p-3 text-center">
+            <div class="card-body">
+                <i class="fas fa-file-contract fa-3x mb-3" style="color: #FFD600;"></i>
+                <h5 class="card-title text-muted">Total Contratações</h5>
+                <p class="display-5 fw-bold">3</p>
+                <div class="mt-auto">
+                    <a asp-controller="Jogadores" asp-action="Create" class="btn btn-sm btn-outline-primary mt-2">
+                        Registar
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-    <div class="table-container">
-        <div class="d-flex justify-content-between align-items-center mb-4">
-            <h5 class="fw-bold m-0">Últimas Transferências</h5>
-            <a href="#" class="text-primary text-decoration-none small">Ver todas</a>
-        </div>
-        <div class="table-responsive">
-            <table class="table align-middle">
-                <thead class="text-muted small">
-                    <tr>
-                        <th>Data</th>
-                        <th>Jogador</th>
-                        <th>Clube Origem</th>
-                        <th>Clube Destino</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td class="text-muted">15/04/2026</td>
-                        <td class="fw-bold">João Silva</td>
-                        <td>SL Benfica</td>
-                        <td>FC Porto</td>
-                    </tr>
-                    <tr>
-                        <td class="text-muted">12/04/2026</td>
-                        <td class="fw-bold">Carlos Pereira</td>
-                        <td>Sporting CP</td>
-                        <td>Sp. Braga</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+<div class="card card-futebol p-4 mt-4 mb-5">
+    <h3 class="mb-3">Últimas Transferências</h3>
+    <div class="table-responsive">
+        <table class="table table-hover table-striped">
+            <thead class="table-dark">
+                <tr>
+                    <th>Data</th>
+                    <th>Jogador</th>
+                    <th>Clube Origem</th>
+                    <th>Clube Destino</th>
+                    <th>Valor</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>15/04/2026</td>
+                    <td>João Silva</td>
+                    <td>SL Benfica</td>
+                    <td>FC Porto</td>
+                    <td>€ 15M</td>
+                </tr>
+                <tr>
+                    <td>12/04/2026</td>
+                    <td>Carlos Pereira</td>
+                    <td>Sporting CP</td>
+                    <td>Sp. Braga</td>
+                    <td>€ 8M</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>
