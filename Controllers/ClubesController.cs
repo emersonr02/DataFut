@@ -117,7 +117,7 @@ namespace DataFut.Controllers
 
             // Jogadores ficam sem clube (SetNull definido no DbContext)
             foreach (var jogador in clube.Jogadores)
-                jogador.ClubeId = null;
+                jogador.ClubeAtualId = null;
 
             _context.Clubes.Remove(clube);
             await _context.SaveChangesAsync();
