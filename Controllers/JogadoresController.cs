@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Linq;
+using Microsoft.AspNetCore.Mvc;
 using DataFut.Data;
 using DataFut.Models.Entities;
 using Microsoft.EntityFrameworkCore;
@@ -26,17 +27,17 @@ namespace DataFut.Controllers
         {
             if (ModelState.IsValid)
             {
+                // Validação: como Jogador.Posicao é uma única entidade (não coleção),
+                // verificamos igualdade pelo Id em vez de usar Any(...)
                 foreach (var posicaoId in posicoesSelecionadas)
                 {
-                    // Contamos quantos jogadores já existem no mesmo clube que tenham esta posição
                     var contagem = await _context.Jogadores
                         .Where(j => j.ClubeId == jogador.ClubeId)
-                        .Where(j => j.Posicoes.Any(p => p.Id == posicaoId))
+                        .Where(j => j.Posicao != null && j.Posicao.Id == posicaoId)
                         .CountAsync();
 
                     if (contagem >= 5)
                     {
-                        // Se atingir 5, adicionamos um erro e paramos o processo
                         var posicaoNome = _context.Posicoes
                             .FirstOrDefault(p => p.Id == posicaoId)?.Nome ?? "selecionada";
 
@@ -45,11 +46,12 @@ namespace DataFut.Controllers
                     }
                 }
 
-                // Se passou na validação acima, associamos as posições ao jogador
-                foreach (var id in posicoesSelecionadas)
+                // Associa a primeira posição selecionada ao jogador (modelo atual tem uma única Posicao)
+                if (posicoesSelecionadas != null && posicoesSelecionadas.Length > 0)
                 {
-                    var p = await _context.Posicoes.FindAsync(id);
-                    if (p != null) jogador.Posicoes.Add(p);
+                    var primeiraId = posicoesSelecionadas[0];
+                    var p = await _context.Posicoes.FindAsync(primeiraId);
+                    if (p != null) jogador.Posicao = p;
                 }
 
                 _context.Add(jogador);

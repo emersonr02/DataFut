@@ -23,18 +23,27 @@
             
             <ul class="nav nav-pills flex-column mb-auto">
                 <li class="nav-item">
-                    <a asp-area="" asp-controller="Home" asp-action="Index" class="nav-link text-white sidebar-link">
-                        <i class="fas fa-chart-line fa-fw me-2"></i> Dashboard
+                    <a asp-controller="Home" asp-action="Index"
+                           class="nav-link @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Home" ? "active" : "")">
+                        <i class="fas fa-chart-line"></i> Dashboard
                     </a>
                 </li>
                 <li>
-                    <a asp-area="" asp-controller="Clubes" asp-action="Index" class="nav-link text-white sidebar-link">
-                        <i class="fas fa-shield-alt fa-fw me-2"></i> Clubes
+                    <a asp-controller="Clubes" asp-action="Index"
+                           class="nav-link @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Clubes" ? "active" : "")">
+                        <i class="fas fa-shield-alt"></i> Clubes
                     </a>
                 </li>
                 <li>
-                    <a asp-area="" asp-controller="Jogadores" asp-action="Index" class="nav-link text-white sidebar-link">
-                        <i class="fas fa-users fa-fw me-2"></i> Jogadores
+                    <a asp-controller="Jogadores" asp-action="Index"
+                           class="nav-link @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Jogadores" ? "active" : "")">
+                        <i class="fas fa-running"></i> Jogadores
+                    </a>
+                </li>
+                <li>
+                    <a asp-controller="Jogadores" asp-action="Create"
+                           class="nav-link @(ViewContext.RouteData.Values["Action"]?.ToString() == "Create" ? "active" : "")">
+                        <i class="fas fa-file-signature"></i> Nova Contratação
                     </a>
                 </li>
             </ul>
