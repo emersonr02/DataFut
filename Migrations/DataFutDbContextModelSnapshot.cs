@@ -34,7 +34,7 @@ namespace DataFut.Migrations
 
                     b.HasIndex("JogadoresId");
 
-                    b.ToTable("ClubeJogador");
+                    b.ToTable("ClubeJogador", (string)null);
                 });
 
             modelBuilder.Entity("DataFut.Models.Entities.Clube", b =>
@@ -69,7 +69,7 @@ namespace DataFut.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Clubes");
+                    b.ToTable("Clubes", (string)null);
                 });
 
             modelBuilder.Entity("DataFut.Models.Entities.Jogador", b =>
@@ -100,7 +100,7 @@ namespace DataFut.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Jogadores");
+                    b.ToTable("Jogadores", (string)null);
                 });
 
             modelBuilder.Entity("DataFut.Models.Entities.Posicao", b =>
@@ -121,7 +121,7 @@ namespace DataFut.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Posicoes");
+                    b.ToTable("Posicoes", (string)null);
                 });
 
             modelBuilder.Entity("DataFut.Models.Entities.Transferencia", b =>
@@ -155,7 +155,7 @@ namespace DataFut.Migrations
 
                     b.HasIndex("JogadorId");
 
-                    b.ToTable("Transferencias");
+                    b.ToTable("Transferencias", (string)null);
                 });
 
             modelBuilder.Entity("JogadorPosicao", b =>
@@ -170,7 +170,7 @@ namespace DataFut.Migrations
 
                     b.HasIndex("PosicoesId");
 
-                    b.ToTable("JogadorPosicao");
+                    b.ToTable("JogadorPosicao", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
