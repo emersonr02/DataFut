@@ -18,6 +18,8 @@ namespace DataFut.ViewModels
         public int PosicaoId { get; set; }
 
         // Listas para os <select> na view
+        public int ClubeId { get; set; }
+        public int PosicaoID { get; set; }
         public SelectList? Clubes { get; set; }
         public SelectList? Posicoes { get; set; }
     }
