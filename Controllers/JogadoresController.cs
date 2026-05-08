@@ -2,6 +2,7 @@
 using DataFut.Data;
 using DataFut.Models.Entities;
 using Microsoft.EntityFrameworkCore;
+using DataFut.ViewModels;
 
 namespace DataFut.Controllers
 {
@@ -59,5 +60,22 @@ namespace DataFut.Controllers
 
             return View(jogador);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Create()
+        {
+            var viewModel = new JogadorContratacaoViewModel
+            {
+                // Popular as SelectLists diretamente a partir do DB
+                Clubes = new SelectList(
+                    await _context.Clubes.OrderBy(c =>c.Nome).ToListAsync(),
+                    "Id",
+                    "Nome"
+                 )
+            };
+
+            return View(viewModel);
+        }
+
     }
 }
