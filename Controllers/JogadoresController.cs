@@ -3,6 +3,7 @@ using DataFut.Data;
 using DataFut.Models.Entities;
 using Microsoft.EntityFrameworkCore;
 using DataFut.ViewModels;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace DataFut.Controllers
 {
@@ -20,35 +21,41 @@ namespace DataFut.Controllers
             return View();
         }
 
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Jogador jogador)
+        public async Task<IActionResult> Create(Jogador jogador, int[] posicoesSelecionadas)
         {
             if (ModelState.IsValid)
             {
-                // Contamos quantos jogadores já existem no clube selecionado (ClubeAtualId) que possuem a mesma posição selecionada (PosicaoId)
-                var contagem = await _context.Jogadores
-                    .Where(j => j.ClubeAtualId == jogador.ClubeAtualId)
-                    .Where(j => j.PosicaoId == jogador.PosicaoId)
-                    .CountAsync();
-
-                if (contagem >= 5)
+                foreach (var posicaoId in posicoesSelecionadas)
                 {
-                    var posicaoNome = await _context.Posicoes
-                        .Where(p => p.Id == jogador.PosicaoId)
-                        .Select(p => p.Nome)
-                        .FirstOrDefaultAsync() ?? "esta posição";
+                    // Contamos quantos jogadores já existem no mesmo clube que tenham esta posição
+                    var contagem = await _context.Jogadores
+                        .Where(j => j.ClubeId == jogador.ClubeId)
+                        .Where(j => j.Posicoes.Any(p => p.Id == posicaoId))
+                        .CountAsync();
 
-                    ModelState.AddModelError("", $"Limite atingido: O clube já possui 5 jogadores para a posição {posicaoNome}.");
+                    if (contagem >= 5)
+                    {
+                        // Se atingir 5, adicionamos um erro e paramos o processo
+                        var posicaoNome = _context.Posicoes
+                            .FirstOrDefault(p => p.Id == posicaoId)?.Nome ?? "selecionada";
 
-                    // Retorna a View com os dados preenchidos e a mensagem de erro
-                    return View(jogador);
+                        ModelState.AddModelError("Posicoes", $"Limite atingido: O clube já tem 5 jogadores na posição {posicaoNome}.");
+                        return View(jogador);
+                    }
                 }
 
-                // Se passou na validação, adiciona o jogador
+                // Se passou na validação acima, associamos as posições ao jogador
+                foreach (var id in posicoesSelecionadas)
+                {
+                    var p = await _context.Posicoes.FindAsync(id);
+                    if (p != null) jogador.Posicoes.Add(p);
+                }
+
                 _context.Add(jogador);
                 await _context.SaveChangesAsync();
-
                 return RedirectToAction("Index", "Home");
             }
 
@@ -56,20 +63,24 @@ namespace DataFut.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Create()
+        public async Task<IActionResult> Contratar()
         {
             var viewModel = new JogadorContratacaoViewModel
             {
                 // Popular as SelectLists diretamente a partir do DB
                 Clubes = new SelectList(
-                    await _context.Clubes.OrderBy(c =>c.Nome).ToListAsync(),
+                    await _context.Clubes.OrderBy(c => c.Nome).ToListAsync(),
                     "Id",
                     "Nome"
-                 )
+                 ),
+                Posicoes = new SelectList(
+                    await _context.Posicoes.OrderBy(p => p.Nome).ToListAsync(),
+                    "Id",
+                    "Nome"
+        )
             };
 
             return View(viewModel);
         }
-
     }
 }
