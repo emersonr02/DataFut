@@ -10,6 +10,6 @@
         public bool IsAmador { get; set; }
         public bool IsAtivo { get; set; }
         // Relacionamento com Jogador
-        public List<Jogador> Jogadores { get; set; }
+        public ICollection<Jogador> Jogadores { get; set; } = new List<Jogador>();
     }
 }

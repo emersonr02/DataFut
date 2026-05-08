@@ -10,9 +10,9 @@
         public int ClubeId { get; set; }
 
         // Relacionamento com Clube
-        public List<Clube> Clubes { get; set; }
+        public ICollection<Clube> Clubes { get; set; } = new List<Clube>();
 
         // Relacionamento com Posicao
-        public List<Posicao> Posicoes { get; set; }
+        public List<Posicao> Posicoes { get; set; } = new List<Posicao>();
     }
 }
