@@ -9,17 +9,10 @@ namespace DataFut.ViewModels
         // Dados básicos do jogador
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "O nome é obrigatório.")]
-        [StringLength(100)]
-        public string Nome { get; set; }
-
-        [Required(ErrorMessage = "A idade é obrigatória.")]
-        [Range(15, 45, ErrorMessage = "A idade deve estar entre 15 e 45 anos.")]
-        public int Idade { get; set; }
-
-        // IDs selecionados pelo utilizador
-        [Required(ErrorMessage ="Selecione um clube.")]
-        public int ClubeId { get; set; }
+        [Required] public string Nome { get; set; }
+        [Required] public string Apelido { get; set; }
+        [Required] public DateTime DataNascimento { get; set; }
+        [Required] public string Nacionalidade { get; set; }
 
         [Required(ErrorMessage = "Selecione uma posição.")]
         public int PosicaoId { get; set; }
