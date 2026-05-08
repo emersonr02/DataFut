@@ -1,9 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 using DataFut.Data;
 using DataFut.Models.Entities;
-using Microsoft.EntityFrameworkCore;
 using DataFut.ViewModels;
-using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace DataFut.Controllers
 {
@@ -16,71 +17,97 @@ namespace DataFut.Controllers
             _context = context;
         }
 
-        public IActionResult Create()
+        // GET: Jogadores
+        //aqui so leitura, qualquer utilizador pode aceder 
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var jogadores = await _context.Jogadores
+                .Include(j => j.ClubeAtual)
+                .Include(j => j.Posicao)
+                .ToListAsync();
+            return View(jogadores);
         }
 
+        // GET: Jogadores/Contratar
+        // Apenas utilizadores com o perfil "Gestor de Clube" podem aceder 
+        [Authorize(Roles = "Gestor de Clube")]
+        public async Task<IActionResult> Contratar()
+        {
+            var model = new JogadorContratacaoViewModel();
+            await PrepararListasViewModel(model);
+            return View(model);
+        }
 
+        // POST: Jogadores/Contratar
         [HttpPost]
+        [Authorize(Roles = "Gestor de Clube")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Jogador jogador, int[] posicoesSelecionadas)
+        public async Task<IActionResult> Contratar(JogadorContratacaoViewModel model)
         {
             if (ModelState.IsValid)
             {
-                foreach (var posicaoId in posicoesSelecionadas)
+                // 1. Validação da Lógica de Negócio: Limite de 5 jogadores por posição no clube 
+                var contagem = await _context.Jogadores
+                    .CountAsync(j => j.ClubeAtualId == model.ClubeId && j.PosicaoId == model.PosicaoId);
+
+                if (contagem >= 5)
                 {
-                    // Contamos quantos jogadores já existem no mesmo clube que tenham esta posição
-                    var contagem = await _context.Jogadores
-                        .Where(j => j.ClubeId == jogador.ClubeId)
-                        .Where(j => j.Posicoes.Any(p => p.Id == posicaoId))
-                        .CountAsync();
+                    var posicaoNome = (await _context.Posicoes.FindAsync(model.PosicaoId))?.Nome ?? "esta posição";
 
-                    if (contagem >= 5)
-                    {
-                        // Se atingir 5, adicionamos um erro e paramos o processo
-                        var posicaoNome = _context.Posicoes
-                            .FirstOrDefault(p => p.Id == posicaoId)?.Nome ?? "selecionada";
+                    // Apresenta mensagem de erro apropriada conforme o requisito 
+                    ModelState.AddModelError(string.Empty, $"Limite atingido: O clube já possui 5 jogadores na posição {posicaoNome}.");
 
-                        ModelState.AddModelError("Posicoes", $"Limite atingido: O clube já tem 5 jogadores na posição {posicaoNome}.");
-                        return View(jogador);
-                    }
+                    await PrepararListasViewModel(model);
+                    return View(model);
                 }
 
-                // Se passou na validação acima, associamos as posições ao jogador
-                foreach (var id in posicoesSelecionadas)
+                // 2. Mapeamento para a Entidade de Domínio 
+                var novoJogador = new Jogador
                 {
-                    var p = await _context.Posicoes.FindAsync(id);
-                    if (p != null) jogador.Posicoes.Add(p);
-                }
+                    Nome = model.Nome,
+                    Apelido = model.Apelido,
+                    DataNascimento = model.DataNascimento,
+                    Nacionalidade = model.Nacionalidade,
+                    PosicaoId = model.PosicaoId,
+                    ClubeAtualId = model.ClubeId
+                };
 
-                _context.Add(jogador);
+                // 3. Persistência e Registo de Histórico 
+                _context.Jogadores.Add(novoJogador);
+                await _context.SaveChangesAsync(); // Gera o ID do jogador
+
+                var transferencia = new Transferencia
+                {
+                    JogadorId = novoJogador.Id,
+                    ClubeDestinoId = model.ClubeId,
+                    DataTransferencia = DateTime.Now
+                };
+
+                _context.Transferencias.Add(transferencia);
                 await _context.SaveChangesAsync();
-                return RedirectToAction("Index", "Home");
+
+                return RedirectToAction(nameof(Index));
             }
 
-            return View(jogador);
+            // Se o modelo for inválido, recarrega as listas de seleção 
+            await PrepararListasViewModel(model);
+            return View(model);
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Contratar()
+        // SelectLists exigidas
+        private async Task PrepararListasViewModel(JogadorContratacaoViewModel model)
         {
-            var viewModel = new JogadorContratacaoViewModel
-            {
-                // Popular as SelectLists diretamente a partir do DB
-                Clubes = new SelectList(
-                    await _context.Clubes.OrderBy(c => c.Nome).ToListAsync(),
-                    "Id",
-                    "Nome"
-                 ),
-                Posicoes = new SelectList(
-                    await _context.Posicoes.OrderBy(p => p.Nome).ToListAsync(),
-                    "Id",
-                    "Nome"
-        )
-            };
+            model.Clubes = new SelectList(
+                await _context.Clubes.OrderBy(c => c.Nome).ToListAsync(),
+                "Id",
+                "Nome"
+            );
 
-            return View(viewModel);
+            model.Posicoes = new SelectList(
+                await _context.Posicoes.OrderBy(p => p.Nome).ToListAsync(),
+                "Id",
+                "Nome"
+            );
         }
     }
 }
