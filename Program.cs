@@ -1,3 +1,7 @@
+using Microsoft.EntityFrameworkCore; 
+using DataFut.Data; 
+using DataFut.Models.Entities;
+
 namespace DataFut
 {
     public class Program
@@ -5,6 +9,12 @@ namespace DataFut
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection")
+                ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+
+            builder.Services.AddDbContext<DataFutDbContext>(options =>
+                options.UseSqlServer(connectionString));
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
