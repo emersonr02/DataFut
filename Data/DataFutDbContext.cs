@@ -31,7 +31,7 @@ namespace DataFut.Data
             modelBuilder.Entity<Jogador>()
                 .HasOne(j => j.ClubeAtual)
                 .WithMany(c => c.Jogadores)
-                .HasForeignKey(j => j.ClubeAtualId)
+                .HasForeignKey(j => j.ClubeId)
                 .OnDelete(DeleteBehavior.SetNull);
 
             // Transferencia -> ClubeOrigem
