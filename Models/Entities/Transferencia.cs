@@ -6,14 +6,14 @@ namespace DataFut.Models.Entities
     {
         public int Id { get; set; }
         public int JogadorId { get; set; }
-        public int ClubeOrigemId { get; set; } = 0;
+        public int? ClubeOrigemId { get; set; }
         public int ClubeDestinoId { get; set; }
         public DateTime DataTransferencia { get; set; }
         public decimal Valor { get; set; }
         // Relacionamentos
-        public Jogador Jogador { get; set; }
-        public Clube ClubeOrigem { get; set; }
-        public Clube ClubeDestino { get; set; }
+        public virtual Jogador Jogador { get; set; } = null!;
+        public virtual Clube? ClubeOrigem { get; set; }
+        public virtual Clube ClubeDestino { get; set; } = null!;
 
     }
 }

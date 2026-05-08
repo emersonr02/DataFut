@@ -1,9 +1,11 @@
 ﻿using DataFut.Models.Entities;
+using DataFut.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace DataFut.Data
 {
-    public class DataFutDbContext : DbContext
+    public class DataFutDbContext : IdentityDbContext
     {
         public DataFutDbContext(DbContextOptions<DataFutDbContext> options) : base(options)
         {
@@ -15,21 +17,18 @@ namespace DataFut.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            // Configuração da relação Muitos-para-Muitos com entidade explícita
-            modelBuilder.Entity<Transferencia>()
-                .HasKey(t => new { t.JogadorId, t.ClubeDestinoId, t.DataTransferencia, t.ClubeOrigemId }); // Chave composta para histórico
 
             modelBuilder.Entity<Transferencia>()
-                .HasOne(t => t.Jogador)
-                .WithMany(j => j.Id)
-                .HasForeignKey(t => t.JogadorId);
+                .HasOne(t => t.ClubeOrigem)
+                .WithMany(c => c.TransferenciasOrigem)
+                .HasForeignKey(t => t.ClubeOrigemId)
+                .OnDelete(DeleteBehavior.Restrict); // Evita conflitos de cascata
 
             modelBuilder.Entity<Transferencia>()
                 .HasOne(t => t.ClubeDestino)
-                .WithOne(c => c.Jogador)
-                .HasForeignKey(t => t.ClubeDestinoId);
-
-
+                .WithMany(c => c.TransferenciasDestino)
+                .HasForeignKey(t => t.ClubeDestinoId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }
