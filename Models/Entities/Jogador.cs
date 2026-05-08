@@ -11,7 +11,7 @@
         public int PosicaoId { get; set; }
         public virtual Posicao Posicao { get; set; } = null!;
 
-        public int? ClubeId { get; set; }
+        public int? ClubeAtualId { get; set; }
         public virtual Clube? ClubeAtual { get; set; }
 
         public virtual ICollection<Transferencia> Transferencias { get; set; } = new List<Transferencia>();

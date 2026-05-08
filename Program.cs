@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using DataFut.Data;
 
 namespace DataFut
 {
@@ -10,7 +11,7 @@ namespace DataFut
             var builder = WebApplication.CreateBuilder(args);
 
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-            builder.Services.AddDbContext<ApplicationDbContext>(options =>
+            builder.Services.AddDbContext<DataFutDbContext>(options =>
                 options.UseSqlServer(connectionString));
 
             builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
@@ -22,7 +23,7 @@ namespace DataFut
                 options.Password.RequiredLength = 6;
             })
             .AddRoles<IdentityRole>()
-            .AddEntityFrameworkStores<ApplicationDbContext>();
+            .AddEntityFrameworkStores<DataFutDbContext>();
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
