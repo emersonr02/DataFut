@@ -1,8 +1,77 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿<div class="container-fluid pt-4">
+    <div class="text-center mb-5">
+        <h1 class="fw-bold" style="color: #1A237E;">Bem-vindo ao DataFut</h1>
+        <div style="width: 60px; height: 4px; background: #FFD600; margin: 10px auto;"></div>
+        <p class="text-muted mt-3">A sua plataforma central de gestão de transferências de futebol[cite: 7, 9].</p>
+    </div>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <div class="row mb-5">
+        <div class="col-md-4">
+            <div class="card card-stats h-100 text-center p-4">
+                <div class="mx-auto mb-3 d-flex align-items-center justify-content-center" style="width:60px; height:60px; background:#eaecf4; border-radius:12px;">
+                    <i class="fas fa-shield-alt text-primary fs-4"></i>
+                </div>
+                <p class="text-muted mb-1">Total Clubes</p>
+                <h2 class="display-6 fw-bold mb-3">24</h2>
+                <a href="#" class="btn btn-rounded">Gerir Clubes</a>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card card-stats h-100 text-center p-4">
+                <div class="mx-auto mb-3 d-flex align-items-center justify-content-center" style="width:60px; height:60px; background:#eaecf4; border-radius:12px;">
+                    <i class="fas fa-users text-primary fs-4"></i>
+                </div>
+                <p class="text-muted mb-1">Total Jogadores</p>
+                <h2 class="display-6 fw-bold mb-3">512</h2>
+                <a href="#" class="btn btn-rounded">Ver Jogadores</a>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card h-100 text-center p-4" style="border: 2px dashed #FFD600; border-radius: 15px;">
+                <div class="mx-auto mb-3 d-flex align-items-center justify-content-center" style="width:60px; height:60px; background:#fff9db; border-radius:12px;">
+                    <i class="fas fa-file-contract fs-4" style="color: #FFD600;"></i>
+                </div>
+                <h5 class="fw-bold">Nova Contratação</h5>
+                <p class="text-muted small">Registar jogador num novo clube[cite: 24].</p>
+                <button class="btn btn-warning w-100 mt-auto fw-bold" style="border-radius:10px;">
+                    <i class="fas fa-plus me-2"></i>Registar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-container">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h5 class="fw-bold m-0">Últimas Transferências</h5>
+            <a href="#" class="text-primary text-decoration-none small">Ver todas</a>
+        </div>
+        <div class="table-responsive">
+            <table class="table align-middle">
+                <thead class="text-muted small">
+                    <tr>
+                        <th>Data</th>
+                        <th>Jogador</th>
+                        <th>Clube Origem</th>
+                        <th>Clube Destino</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="text-muted">15/04/2026</td>
+                        <td class="fw-bold">João Silva</td>
+                        <td>SL Benfica</td>
+                        <td>FC Porto</td>
+                    </tr>
+                    <tr>
+                        <td class="text-muted">12/04/2026</td>
+                        <td class="fw-bold">Carlos Pereira</td>
+                        <td>Sporting CP</td>
+                        <td>Sp. Braga</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
