@@ -9,10 +9,13 @@
         public string Nacionalidade { get; set; } = string.Empty;
         public int ClubeId { get; set; }
 
-        // Relacionamento com Clube
-        public ICollection<Clube> Clubes { get; set; } = new List<Clube>();
+        public int PosicaoId { get; set; }
+        public virtual Posicao Posicao { get; set; } = null!;
 
-        // Relacionamento com Posicao
-        public List<Posicao> Posicoes { get; set; } = new List<Posicao>();
+        public int? ClubeAtualId { get; set; }
+        public virtual Clube? ClubeAtual { get; set; }
+
+        public virtual ICollection<Transferencia> Transferencias { get; set; } = new List<Transferencia>();
     }
 }
+
