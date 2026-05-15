@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
+using DataFut.Models;
 
 [Authorize] // Precisa estar logado para usar isso
 public class AdminController : Controller
