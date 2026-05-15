@@ -1,0 +1,46 @@
+﻿@model DataFut.Models.Entities.Clube
+
+@{
+    ViewData["Title"] = "Novo Clube";
+}
+
+<h1>Novo Clube</h1>
+
+<form asp-action="Create">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <div class="mb-3">
+        <label asp-for="Nome" class="form-label"></label>
+        <input asp-for="Nome" class="form-control" />
+        <span asp-validation-for="Nome" class="text-danger"></span>
+    </div>
+    <div class="mb-3">
+        <label asp-for="Sigla" class="form-label"></label>
+        <input asp-for="Sigla" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="Cidade" class="form-label"></label>
+        <input asp-for="Cidade" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label asp-for="EscudoUrl" class="form-label"></label>
+        <input asp-for="EscudoUrl" class="form-control" />
+    </div>
+    <div class="mb-3 form-check">
+        <input asp-for="IsAmador" class="form-check-input" />
+        <label asp-for="IsAmador" class="form-check-label"></label>
+    </div>
+    <div class="mb-3 form-check">
+        <input asp-for="IsAtivo" class="form-check-input" />
+        <label asp-for="IsAtivo" class="form-check-label"></label>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Criar</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

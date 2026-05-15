@@ -1,0 +1,35 @@
+﻿@model DataFut.Models.Entities.Clube
+
+@{
+    ViewData["Title"] = "Detalhes do Clube";
+}
+
+<h1>@Model.Nome</h1>
+
+<dl class="row">
+    <dt class="col-sm-2">Sigla</dt>
+    <dd class="col-sm-10">@Model.Sigla</dd>
+
+    <dt class="col-sm-2">Cidade</dt>
+    <dd class="col-sm-10">@Model.Cidade</dd>
+
+    <dt class="col-sm-2">Amador</dt>
+    <dd class="col-sm-10">@(Model.IsAmador ? "Sim" : "Não")</dd>
+
+    <dt class="col-sm-2">Ativo</dt>
+    <dd class="col-sm-10">@(Model.IsAtivo ? "Sim" : "Não")</dd>
+</dl>
+
+@if (Model.Jogadores?.Any() == true)
+{
+    <h3>Jogadores</h3>
+    <ul>
+        @foreach (var j in Model.Jogadores)
+        {
+            <li>@j.Nome — @j.Posicao?.Nome</li>
+        }
+    </ul>
+}
+
+<a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Editar</a>
+<a asp-action="Index" class="btn btn-secondary">Voltar</a>
