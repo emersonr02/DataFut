@@ -1,6 +1,7 @@
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using DataFut.Data;
+using DataFut.Models;
 
 namespace DataFut
 {
@@ -49,6 +50,8 @@ namespace DataFut
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
+
+            app.MapRazorPages();
 
             using (var scope = app.Services.CreateScope())
             {

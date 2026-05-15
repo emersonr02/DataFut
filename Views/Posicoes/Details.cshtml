@@ -1,0 +1,38 @@
+﻿@model DataFut.Models.Entities.Posicao
+
+@{
+    ViewData["Title"] = "Detalhes da Posição";
+}
+
+<h1>@Model.Nome</h1>
+
+@if (Model.Jogadores?.Any() == true)
+{
+    <h3>Jogadores nesta Posição</h3>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Apelido</th>
+                <th>Clube Atual</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var jogador in Model.Jogadores)
+            {
+                <tr>
+                    <td>@jogador.Nome</td>
+                    <td>@jogador.Apelido</td>
+                    <td>@jogador.ClubeAtual?.Nome</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p class="text-muted">Nenhum jogador nesta posição.</p>
+}
+
+<a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Editar</a>
+<a asp-action="Index" class="btn btn-secondary">Voltar</a>

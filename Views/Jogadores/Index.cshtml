@@ -1,0 +1,38 @@
+﻿@model IEnumerable<DataFut.Models.Entities.Jogador>
+
+@{
+    ViewData["Title"] = "Jogadores";
+}
+
+<h1>Jogadores</h1>
+
+@if (User.IsInRole("Gestor de Clube"))
+{
+    <p>
+        <a asp-action="Contratar" class="btn btn-primary">Nova Contratação</a>
+    </p>
+}
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Apelido</th>
+            <th>Nacionalidade</th>
+            <th>Posição</th>
+            <th>Clube Atual</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var jogador in Model)
+        {
+            <tr>
+                <td>@jogador.Nome</td>
+                <td>@jogador.Apelido</td>
+                <td>@jogador.Nacionalidade</td>
+                <td>@jogador.Posicao?.Nome</td>
+                <td>@jogador.ClubeAtual?.Nome</td>
+            </tr>
+        }
+    </tbody>
+</table>
