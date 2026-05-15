@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using DataFut.Data;
+using DataFut.Models;
 
 namespace DataFut
 {
