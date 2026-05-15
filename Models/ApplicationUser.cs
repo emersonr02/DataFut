@@ -2,6 +2,5 @@ using Microsoft.AspNetCore.Identity;
 
 public class ApplicationUser : IdentityUser
 {
-    public string Name { get; set; }
-    public string Role { get; set; }
+    public string Nome { get; set; }
 }
