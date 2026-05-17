@@ -1,11 +1,12 @@
 ﻿using DataFut.Models.Entities;
+using DataFut.Models;
 using DataFut.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace DataFut.Data
 {
-    public class DataFutDbContext : IdentityDbContext
+    public class DataFutDbContext : IdentityDbContext<ApplicationUser>
     {
         public DataFutDbContext(DbContextOptions<DataFutDbContext> options) : base(options)
         {

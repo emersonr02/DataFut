@@ -1,0 +1,60 @@
+﻿@model DataFut.ViewModels.JogadorContratacaoViewModel
+
+@{
+    ViewData["Title"] = "Nova Contratação";
+}
+
+<h1>Nova Contratação</h1>
+
+<form asp-action="Contratar">
+    <div asp-validation-summary="All" class="text-danger mb-3"></div>
+
+    <div class="mb-3">
+        <label asp-for="Nome" class="form-label"></label>
+        <input asp-for="Nome" class="form-control" />
+        <span asp-validation-for="Nome" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Apelido" class="form-label"></label>
+        <input asp-for="Apelido" class="form-control" />
+        <span asp-validation-for="Apelido" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="DataNascimento" class="form-label"></label>
+        <input asp-for="DataNascimento" class="form-control" type="date" />
+        <span asp-validation-for="DataNascimento" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Nacionalidade" class="form-label"></label>
+        <input asp-for="Nacionalidade" class="form-control" />
+        <span asp-validation-for="Nacionalidade" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="PosicaoId" class="form-label"></label>
+        <select asp-for="PosicaoId" asp-items="Model.Posicoes" class="form-select">
+            <option value="">-- Seleciona uma Posição --</option>
+        </select>
+        <span asp-validation-for="PosicaoId" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="ClubeId" class="form-label"></label>
+        <select asp-for="ClubeId" asp-items="Model.Clubes" class="form-select">
+            <option value="">-- Seleciona um Clube --</option>
+        </select>
+        <span asp-validation-for="ClubeId" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Contratar</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

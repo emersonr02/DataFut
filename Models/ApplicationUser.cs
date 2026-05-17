@@ -1,7 +1,10 @@
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 
-public class ApplicationUser : IdentityUser
+namespace DataFut.Models
 {
-    public string Name { get; set; }
-    public string Role { get; set; }
+    public class ApplicationUser : IdentityUser
+    {
+        public string? Name { get; set; }
+        public string? Role { get; set; }
+    }
 }

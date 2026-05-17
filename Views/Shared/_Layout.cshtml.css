@@ -1,48 +1,61 @@
-﻿/* Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
-for details on configuring this project to bundle and minify static web assets. */
-
-a.navbar-brand {
-  white-space: normal;
-  text-align: center;
-  word-break: break-all;
-}
-
+﻿/* Configurações padrão */
 a {
-  color: #0077cc;
+    color: #FFD600;
+    text-decoration: none;
 }
 
 .btn-primary {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+    color: #1A237E;
+    background-color: #FFD600;
+    border-color: #FFD600;
 }
 
-.nav-pills .nav-link.active, .nav-pills .show > .nav-link {
-  color: #fff;
-  background-color: #1b6ec2;
-  border-color: #1861ac;
+/* ==========================================================================
+   FORÇAR BARRA AMARELA NA SIDEBAR (Substitui completamente o bloco anterior)
+   ========================================================================== */
+
+/* Alvo direto nos links da lista da sidebar */
+ul.nav-pills li a.nav-link {
+    border-radius: 0 !important;
+    color: rgba(255, 255, 255, 0.7) !important;
+    border-left: 4px solid transparent !important;
+    padding: 12px 20px !important;
+    background-color: transparent !important; /* Remove o fundo azul antigo */
+    transition: all 0.3s ease;
 }
+
+    /* Forçar o estado ATIVO (Garante a Linha Amarela) */
+    ul.nav-pills li a.nav-link.active {
+        color: #FFD600 !important; /* Texto fica amarelo */
+        background-color: rgba(255, 255, 255, 0.1) !important; /* Fundo subtil */
+        border-left: 4px solid #FFD600 !important; /* A BARRA AMARELA */
+        font-weight: bold !important;
+    }
+
+    /* Efeito Hover */
+    ul.nav-pills li a.nav-link:hover:not(.active) {
+        color: #ffffff !important;
+        background-color: rgba(255, 255, 255, 0.05) !important;
+    }
+
+/* ========================================================================== */
 
 .border-top {
-  border-top: 1px solid #e5e5e5;
+    border-top: 1px solid #e5e5e5;
 }
+
 .border-bottom {
-  border-bottom: 1px solid #e5e5e5;
+    border-bottom: 1px solid #e5e5e5;
 }
 
 .box-shadow {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
-}
-
-button.accept-policy {
-  font-size: 1rem;
-  line-height: inherit;
+    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
 }
 
 .footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  white-space: nowrap;
-  line-height: 60px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    line-height: 60px;
 }

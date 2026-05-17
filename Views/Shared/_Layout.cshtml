@@ -23,29 +23,28 @@
             
             <ul class="nav nav-pills flex-column mb-auto">
                 <li class="nav-item">
-                    <a asp-controller="Home" asp-action="Index"
-                           class="nav-link @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Home" ? "active" : "")">
-                        <i class="fas fa-chart-line"></i> Dashboard
+                    <a asp-controller="Home" asp-action="Index" class="nav-link">
+                        <i class="fas fa-chart-line me-2"></i> Dashboard
                     </a>
                 </li>
                 <li>
-                    <a asp-controller="Clubes" asp-action="Index"
-                           class="nav-link @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Clubes" ? "active" : "")">
-                        <i class="fas fa-shield-alt"></i> Clubes
+                    <a asp-controller="Clubes" asp-action="Index" class="nav-link">
+                        <i class="fas fa-shield-alt me-2"></i> Clubes
                     </a>
                 </li>
                 <li>
-                    <a asp-controller="Jogadores" asp-action="Index"
-                           class="nav-link @(ViewContext.RouteData.Values["Controller"]?.ToString() == "Jogadores" ? "active" : "")">
-                        <i class="fas fa-running"></i> Jogadores
+                    <a asp-controller="Jogadores" asp-action="Index" class="nav-link">
+                        <i class="fas fa-running me-2"></i> Jogadores
                     </a>
                 </li>
-                <li>
-                    <a asp-controller="Jogadores" asp-action="Create"
-                           class="nav-link @(ViewContext.RouteData.Values["Action"]?.ToString() == "Create" ? "active" : "")">
-                        <i class="fas fa-file-signature"></i> Nova Contratação
-                    </a>
-                </li>
+                @if (User.IsInRole("Gestor de Clube"))
+                {
+                    <li>
+                        <a asp-controller="Jogadores" asp-action="Contratar" class="nav-link">
+                            <i class="fas fa-file-signature me-2"></i> Nova Contratação
+                        </a>
+                    </li>
+                }
             </ul>
             <hr>
             
@@ -58,18 +57,7 @@
             
             <header class="p-3 mb-4 bg-white border-bottom shadow-sm">
                 <div class="container-fluid d-flex justify-content-end align-items-center">
-                    
-                    @* <partial name="_LoginPartial" /> *@
-                    
-                    <div class="dropdown text-end">
-                        <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fas fa-user-circle fa-lg me-2 text-secondary"></i><span class="fw-bold">Login / Registar</span>
-                        </a>
-                        <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser">
-                            <li><a class="dropdown-item" href="#">Iniciar Sessão</a></li>
-                            <li><a class="dropdown-item" href="#">Registar Conta</a></li>
-                        </ul>
-                    </div>
+                    <partial name="_LoginPartial" />
                 </div>
             </header>
 

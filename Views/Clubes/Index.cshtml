@@ -1,0 +1,41 @@
+﻿@model IEnumerable<DataFut.Models.Entities.Clube>
+
+@{
+    ViewData["Title"] = "Clubes";
+}
+
+<h1>Clubes</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Novo Clube</a>
+</p>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Sigla</th>
+            <th>Cidade</th>
+            <th>Amador</th>
+            <th>Ativo</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var clube in Model)
+        {
+            <tr>
+                <td>@clube.Nome</td>
+                <td>@clube.Sigla</td>
+                <td>@clube.Cidade</td>
+                <td>@(clube.IsAmador ? "Sim" : "Não")</td>
+                <td>@(clube.IsAtivo ? "Sim" : "Não")</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@clube.Id" class="btn btn-sm btn-info">Detalhes</a>
+                    <a asp-action="Edit" asp-route-id="@clube.Id" class="btn btn-sm btn-warning">Editar</a>
+                    <a asp-action="Delete" asp-route-id="@clube.Id" class="btn btn-sm btn-danger">Eliminar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

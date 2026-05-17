@@ -1,5 +1,6 @@
-﻿using DataFut.Data;
+﻿﻿using DataFut.Data;
 using DataFut.Models.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -47,6 +48,7 @@ namespace DataFut.Controllers
         public IActionResult Create() => View();
 
         // POST: /Clubes/Create
+        [Authorize(Roles = "Gestor de Clube")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(
@@ -60,6 +62,7 @@ namespace DataFut.Controllers
         }
 
         // GET: /Clubes/Edit/5
+        [Authorize(Roles = "Gestor de Clube")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null) return NotFound();
@@ -69,6 +72,7 @@ namespace DataFut.Controllers
         }
 
         // POST: /Clubes/Edit/5
+        [Authorize(Roles = "Gestor de Clube")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(
@@ -92,6 +96,7 @@ namespace DataFut.Controllers
         }
 
         // GET: /Clubes/Delete/5
+        [Authorize(Roles = "Gestor de Clube")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null) return NotFound();
@@ -105,6 +110,7 @@ namespace DataFut.Controllers
         }
 
         // POST: /Clubes/Delete/5
+        [Authorize(Roles = "Gestor de Clube")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
